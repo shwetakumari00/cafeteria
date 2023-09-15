@@ -1,0 +1,41 @@
+<div  class = "row" > 
+ <% @cats.each do |cat| %>
+<%  unless cat.products.where(featured: true).blank? %>
+<% if  cat.products.where(featured: true).first.image.attached? %> 
+ <%= image_tag(cat.products.where(featured: true).last.image, class:'img-fluid')%> 
+ <% end %>
+  <% end %>
+
+ <% @products.each do |product| %>
+ <% if  product.category == cat %>
+ <div  class="col-4">
+ 	<h5>
+ 		<%= product.name %>
+ 	</h5>
+ 	<p>
+ 		<%= product.description %>
+ 	</p>
+
+ 	<span><%= product.price %><%= "| Available for catering" if  product.catering %></span>
+    <%= form_with model: @order_item do  |f| %>
+    <%= f.hidden_field  :product_id, value: product.id  %>
+    <%= f.number_field  :quantity, value: 1,min: 1 %>
+    <%= f.submit "Add To Cart" %>
+    <% end %> 
+</div>
+ <% end %>
+ <% end %>
+ <% end %>
+  <div class ='col-12'>
+ 	<h1 style= "text-align:center;"><%= @cats.last(3).first.heading %></h1>
+ 	<hr />
+ </div>
+ <div class ='col-12'>
+ 	<h1 style= "text-align:center;"><%= @cats.last(2).first.heading %></h1>
+ 	<hr />
+ </div>
+ <div class ='col-12'>
+ 	<h1 style= "text-align:center;"><%= @cats.last(1).first.heading %></h1>
+ 	<hr />
+ </div>
+</div>

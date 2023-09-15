@@ -1,0 +1,11 @@
+
+<% if @order_item.product.name == 'Pizza' %>
+<%= image_tag 'pizza image.jpg', width: '100%' %>
+<% elsif @order_item.product.name == 'Pasta' %>
+<%= image_tag 'pasta image.jpg', width: '100%' %>
+<% elsif @order_item.product.name == 'Icecream' %>
+<%= image_tag 'dessert image.jpg', width: '100%' %>
+<% end %>
+<h2>Subtotal: <%= @order_item.total %>
+<%= link_to 'Remove Item', order_item_path(@order_item), method: :delete %>
+</h2>
